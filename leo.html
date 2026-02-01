@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo Nguyen | F&B Business Strategist</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': '#1c1917',
+                        'brand-green': '#155e75', // Deep teal/blue from the portfolio vibe
+                        'brand-accent': '#d97706', // Amber accent
+                        'paper': '#f5f5f4', // Stone-100
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to right bottom, rgba(28, 25, 23, 0.8), rgba(21, 94, 117, 0.7)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-paper text-brand-dark font-sans antialiased selection:bg-brand-green selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center text-brand-dark">
+        <div class="text-2xl font-serif font-bold tracking-tighter">LEO NGUYỄN.</div>
+        <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wide">
+            <a href="#about" class="hover:text-brand-green transition-colors">ABOUT</a>
+            <a href="#methodology" class="hover:text-brand-green transition-colors">APPROACH</a>
+            <a href="#projects" class="hover:text-brand-green transition-colors">PROJECTS</a>
+            <a href="#contact" class="hover:text-brand-green transition-colors">CONTACT</a>
+        </div>
+        <a href="#contact" class="px-6 py-2 bg-brand-dark text-white rounded-full text-sm font-semibold hover:bg-brand-green transition-colors shadow-lg hidden md:block">
+            Let's Talk
+        </a>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-xl font-serif">
+        <button class="absolute top-6 right-6 text-3xl" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="#about" onclick="toggleMobileMenu()">About</a>
+        <a href="#methodology" onclick="toggleMobileMenu()">Approach</a>
+        <a href="#projects" onclick="toggleMobileMenu()">Projects</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat text-white px-4">
+        <div class="text-center max-w-4xl mx-auto space-y-6 reveal active">
+            <p class="text-brand-accent font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4">Portfolio 2026</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight">
+                Strategist & <br/> <span class="italic text-brand-accent">F&B</span> Business Consulting
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto font-light mt-6">
+                Navigating the journey from market research and product positioning to crafting growth strategies rooted in real-world data.
+            </p>
+            <div class="pt-8">
+                <a href="#projects" class="inline-block border border-white px-8 py-3 rounded-full hover:bg-white hover:text-brand-dark transition-all duration-300 uppercase text-xs tracking-widest font-bold">
+                    View Portfolio
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-arrow-down text-white opacity-50"></i>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative reveal">
+                <div class="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                    <!-- Placeholder for Leo's portrait -->
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Leo Nguyen" class="object-cover w-full h-full hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-xl max-w-xs hidden md:block">
+                    <p class="font-serif italic text-xl text-brand-green">"Understanding user behavior & vibrant market dynamics."</p>
+                </div>
+            </div>
+            
+            <div class="space-y-8 reveal">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark">Hi, I'm Leo.</h2>
+                <div class="w-20 h-1 bg-brand-accent"></div>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    I am a Saigonese who used to live in Singapore, driven by a deep passion for understanding user behavior and the vibrant dynamics of the Vietnamese market.
+                </p>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    With a foundation in <strong>Communication & Growth initiatives</strong>, I have cultivated my career in product marketing and user growth. My expertise lies in connecting the dots between operational reality and strategic vision.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-6 pt-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <span class="font-semibold">Growth Strategy</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <span class="font-semibold">Product Positioning</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <span class="font-semibold">Market Research</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <span class="font-semibold">F&B Operations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Section (Derived from "Tổng thể hạng mục triển khai") -->
+    <section id="methodology" class="bg-brand-dark text-white py-20 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">The Process</h2>
+                <p class="text-gray-400">My strategic framework for F&B success.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal">
+                    <div class="text-4xl text-brand-accent mb-4">01</div>
+                    <h3 class="text-xl font-bold mb-3">Market Research</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Scanning the area, defining customer personas, mapping direct competitors, and analyzing alternative solutions in the market.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 100ms;">
+                    <div class="text-4xl text-brand-accent mb-4">02</div>
+                    <h3 class="text-xl font-bold mb-3">Assessment</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Establishing competitive criteria for Location, Concept, Product, and Tradezone. Validating the "Why" behind the business.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 200ms;">
+                    <div class="text-4xl text-brand-accent mb-4">03</div>
+                    <h3 class="text-xl font-bold mb-3">Growth Strategy</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Defining strategic goals and financial estimations to shape Branding & Marketing objectives (Revenue, ROI, Traffic).
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 300ms;">
+                    <div class="text-4xl text-brand-accent mb-4">04</div>
+                    <h3 class="text-xl font-bold mb-3">Execution (IMC)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Setting up the full communication framework: Positioning, Big Idea, Brand Archetype, Key Message, and Integrated Marketing Channels.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 md:py-32 px-4 md:px-12 bg-stone-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark mb-2">Featured Projects</h2>
+                    <p class="text-gray-500">Selected works 2024 - 2026</p>
+                </div>
+                
+                <!-- Category Filters (Visual Only for this demo) -->
+                <div class="flex space-x-4 mt-6 md:mt-0 overflow-x-auto pb-2">
+                    <span class="px-4 py-1 bg-brand-dark text-white rounded-full text-sm cursor-pointer">All</span>
+                    <span class="px-4 py-1 border border-gray-300 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition">Dining</span>
+                    <span class="px-4 py-1 border border-gray-300 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition">Nightlife</span>
+                    <span class="px-4 py-1 border border-gray-300 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition">Café</span>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Hidden Charm -->
+                <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hidden Charm" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Dining</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Hidden Charm</h3>
+                        <p class="text-gray-500 text-sm mb-4">Vietnamese Cuisine | Thao Dien</p>
+                        <hr class="border-gray-100 mb-4">
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between"><span>Goal:</span> <span class="font-medium text-brand-green">Launch Strategy (6 months)</span></div>
+                            <div class="flex justify-between"><span>Task:</span> <span class="font-medium">Market Entry & Branding</span></div>
+                        </div>
+                    </div>
+                    <!-- Hover Overlay -->
+                    <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-8 text-center">
+                        <h4 class="text-2xl font-serif font-bold mb-2">Hidden Charm</h4>
+                        <p class="text-sm mb-6">"Grand Opening Campaign: The Secret Garden Under the Sky"</p>
+                        <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Case Study</button>
+                    </div>
+                </div>
+
+                <!-- Project 2: Dokkaebi Pocha -->
+                <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1580651315530-69c8e0026377?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dokkaebi Pocha" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Casual Dining</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Dokkaebi Pocha</h3>
+                        <p class="text-gray-500 text-sm mb-4">Korean Style Pub | Ho Chi Minh City</p>
+                        <hr class="border-gray-100 mb-4">
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between"><span>Goal:</span> <span class="font-medium text-brand-green">Launch & Growth (3 months)</span></div>
+                            <div class="flex justify-between"><span>Task:</span> <span class="font-medium">IMC Plan & Positioning</span></div>
+                        </div>
+                    </div>
+                     <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-8 text-center">
+                        <h4 class="text-2xl font-serif font-bold mb-2">Dokkaebi Pocha</h4>
+                        <p class="text-sm mb-6">"Not your average Pocha. Nightlife strategy & menu engineering."</p>
+                        <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Case Study</button>
+                    </div>
+                </div>
+
+                <!-- Project 3: The Park -->
+                <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="The Park" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Nightlife</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold mb-1">The Park Rooftop</h3>
+                        <p class="text-gray-500 text-sm mb-4">Bar & Lounge | District 1</p>
+                        <hr class="border-gray-100 mb-4">
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between"><span>Goal:</span> <span class="font-medium text-brand-green">Market Penetration (6 months)</span></div>
+                            <div class="flex justify-between"><span>Task:</span> <span class="font-medium">Concept & Nightlife Strategy</span></div>
+                        </div>
+                    </div>
+                     <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-8 text-center">
+                        <h4 class="text-2xl font-serif font-bold mb-2">The Park</h4>
+                        <p class="text-sm mb-6">"Secret Garden Concept. Cocktail development & targeted ads."</p>
+                        <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Case Study</button>
+                    </div>
+                </div>
+
+                <!-- Project 4: Mua Vang -->
+                <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519671482538-518b5c2c681c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mua Vang" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Event Hall</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Mua Vang</h3>
+                        <p class="text-gray-500 text-sm mb-4">The Warehouse | District 10</p>
+                        <hr class="border-gray-100 mb-4">
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between"><span>Goal:</span> <span class="font-medium text-brand-green">Revenue Growth</span></div>
+                            <div class="flex justify-between"><span>Task:</span> <span class="font-medium">Performance Ads & KOC Booking</span></div>
+                        </div>
+                    </div>
+                     <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-8 text-center">
+                        <h4 class="text-2xl font-serif font-bold mb-2">Mua Vang</h4>
+                        <p class="text-sm mb-6">"Optimizing performance campaigns and creative assets for conversion."</p>
+                        <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Case Study</button>
+                    </div>
+                </div>
+
+                 <!-- Project 5: Cham Da Lat -->
+                 <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cham Da Lat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Cafe & Dessert</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Cham Da Lat</h3>
+                        <p class="text-gray-500 text-sm mb-4">Avocado Specialty | Phu Nhuan</p>
+                        <hr class="border-gray-100 mb-4">
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between"><span>Goal:</span> <span class="font-medium text-brand-green">Brand Launching</span></div>
+                            <div class="flex justify-between"><span>Task:</span> <span class="font-medium">Grand Opening & Promotion</span></div>
+                        </div>
+                    </div>
+                     <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-8 text-center">
+                        <h4 class="text-2xl font-serif font-bold mb-2">Cham Da Lat</h4>
+                        <p class="text-sm mb-6">"Bringing the flavor of Dalat Avocado to Saigon."</p>
+                        <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Case Study</button>
+                    </div>
+                </div>
+
+                <!-- Project 6: Dabacha -->
+                <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dabacha" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Milk Tea</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Dabacha</h3>
+                        <p class="text-gray-500 text-sm mb-4">Milk Tea & Tea | District 1</p>
+                        <hr class="border-gray-100 mb-4">
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between"><span>Goal:</span> <span class="font-medium text-brand-green">Brand Launching</span></div>
+                            <div class="flex justify-between"><span>Task:</span> <span class="font-medium">Brand Archetype & Key Message</span></div>
+                        </div>
+                    </div>
+                     <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-8 text-center">
+                        <h4 class="text-2xl font-serif font-bold mb-2">Dabacha</h4>
+                        <p class="text-sm mb-6">"Positioning Dabacha in the competitive District 1 Milk Tea market."</p>
+                        <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Case Study</button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-16 reveal">
+                <p class="text-gray-500 mb-4 italic">And many others: Chuyen Ba Bua, Xoi Boco, Homebrew, Felota, Dong Day...</p>
+                <a href="#" class="text-brand-green font-bold hover:underline">View All Projects <i class="fa-solid fa-arrow-right ml-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-brand-dark text-white py-24 px-6 relative overflow-hidden">
+        <!-- Abstract Background Circles -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-green rounded-full opacity-10 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-brand-accent rounded-full opacity-10 blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 reveal">
+            <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8">Ready to elevate your F&B Business?</h2>
+            <p class="text-xl text-gray-300 mb-12">Let's discuss your next project, strategy, or grand opening.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="mailto:chilaptrannguyen@gmail.com" class="flex items-center justify-center px-8 py-4 bg-brand-green rounded-full font-bold hover:bg-white hover:text-brand-dark transition-all duration-300">
+                    <i class="fa-solid fa-envelope mr-3"></i> chilaptrannguyen@gmail.com
+                </a>
+                <a href="tel:0967921034" class="flex items-center justify-center px-8 py-4 bg-transparent border border-gray-500 rounded-full font-bold hover:border-white hover:bg-white/5 transition-all duration-300">
+                    <i class="fa-solid fa-phone mr-3"></i> 096 792 1034
+                </a>
+            </div>
+
+            <div class="mt-16 flex justify-center space-x-8">
+                <a href="#" class="text-3xl text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="text-3xl text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-file-pdf"></i></a>
+            </div>
+
+            <div class="mt-16 border-t border-gray-800 pt-8 text-sm text-gray-500">
+                <p>&copy; 2026 Leo Nguyễn Portfolio. All rights reserved.</p>
+                <p class="mt-2">Ho Chi Minh City, Vietnam</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+            } else {
+                menu.classList.add('translate-x-full');
+            }
+        }
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
