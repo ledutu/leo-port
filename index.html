@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo Nguyễn | F&B Business Consulting</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': '#1c1917',
+                        'brand-green': '#155e75',
+                        'brand-accent': '#d97706',
+                        'paper': '#f5f5f4',
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to right bottom, rgba(28, 25, 23, 0.85), rgba(21, 94, 117, 0.75)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .category-badge {
+            @apply px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-all duration-300;
+        }
+        .category-badge.active {
+            @apply bg-brand-dark text-white;
+        }
+        .category-badge:not(.active) {
+            @apply border border-gray-300 hover:bg-gray-100;
+        }
+    </style>
+</head>
+<body class="bg-paper text-brand-dark font-sans antialiased selection:bg-brand-green selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center text-brand-dark">
+        <div class="text-2xl font-serif font-bold tracking-tighter">LEO NGUYỄN.</div>
+        <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wide">
+            <a href="#about" class="hover:text-brand-green transition-colors">ABOUT</a>
+            <a href="#methodology" class="hover:text-brand-green transition-colors">APPROACH</a>
+            <a href="#projects" class="hover:text-brand-green transition-colors">PROJECTS</a>
+            <a href="#success-metrics" class="hover:text-brand-green transition-colors">SUCCESS METRICS</a>
+            <a href="#contact" class="hover:text-brand-green transition-colors">CONTACT</a>
+        </div>
+        <a href="#contact" class="px-6 py-2 bg-brand-dark text-white rounded-full text-sm font-semibold hover:bg-brand-green transition-colors shadow-lg hidden md:block">
+            Let's Talk
+        </a>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-xl font-serif">
+        <button class="absolute top-6 right-6 text-3xl" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="#about" onclick="toggleMobileMenu()">About</a>
+        <a href="#methodology" onclick="toggleMobileMenu()">Approach</a>
+        <a href="#projects" onclick="toggleMobileMenu()">Projects</a>
+        <a href="#success-metrics" onclick="toggleMobileMenu()">Success Metrics</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat text-white px-4">
+        <div class="text-center max-w-4xl mx-auto space-y-6 reveal active">
+            <p class="text-brand-accent font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4">2026 Portfolio</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight">
+                MR. LEO NGUYỄN
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-serif italic text-gray-200">
+                Strategist & <span class="text-brand-accent">F&B</span> Business Consulting
+            </h2>
+            <div class="pt-8">
+                <a href="#projects" class="inline-block border border-white px-8 py-3 rounded-full hover:bg-white hover:text-brand-dark transition-all duration-300 uppercase text-xs tracking-widest font-bold">
+                    View Portfolio
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-arrow-down text-white opacity-50"></i>
+        </div>
+    </header>
+
+    <!-- Agenda Section -->
+    <section id="agenda" class="py-16 px-6 md:px-12 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-lg transition-shadow reveal">
+                    <div class="text-5xl font-serif font-bold text-brand-accent mb-4">01</div>
+                    <h3 class="text-2xl font-bold mb-2">PROJECTS</h3>
+                    <p class="text-gray-500">F&B Consulting Portfolio</p>
+                </div>
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-lg transition-shadow reveal" style="transition-delay: 100ms;">
+                    <div class="text-5xl font-serif font-bold text-brand-accent mb-4">02</div>
+                    <h3 class="text-2xl font-bold mb-2">SUCCESS METRICS</h3>
+                    <p class="text-gray-500">Results & Outcomes</p>
+                </div>
+                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-lg transition-shadow reveal" style="transition-delay: 200ms;">
+                    <div class="text-5xl font-serif font-bold text-brand-accent mb-4">03</div>
+                    <h3 class="text-2xl font-bold mb-2">CONTACT</h3>
+                    <p class="text-gray-500">Let's Connect</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative reveal">
+                <div class="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Leo Nguyen" class="object-cover w-full h-full hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-xl max-w-xs hidden md:block">
+                    <p class="font-serif italic text-xl text-brand-green">"Understanding user behavior & vibrant market dynamics."</p>
+                </div>
+            </div>
+            
+            <div class="space-y-8 reveal">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark">HI, I'M LEO</h2>
+                <div class="w-20 h-1 bg-brand-accent"></div>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    I am Leo, a Saigonese who used to live in Singapore, driven by a deep passion for understanding user behavior and the vibrant dynamics of the Vietnamese market.
+                </p>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    With a foundation in <strong>Communication & Growth initiatives</strong>, I have cultivated my career in product marketing and user growth, navigating the journey from market research and product positioning to crafting growth strategies rooted in real-world data and insights.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-6 pt-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <span class="font-semibold">Growth Strategy</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <span class="font-semibold">Product Positioning</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <span class="font-semibold">Market Research</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <span class="font-semibold">F&B Consulting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Section (Derived from "Tổng thể hạng mục triển khai") -->
+    <section id="methodology" class="bg-brand-dark text-white py-20 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">The Process</h2>
+                <p class="text-gray-400">My strategic framework for F&B success.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal">
+                    <div class="text-4xl text-brand-accent mb-4">01</div>
+                    <h3 class="text-xl font-bold mb-3">Market Research</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Scanning the area, defining customer personas, mapping direct competitors, and analyzing alternative solutions in the market.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 100ms;">
+                    <div class="text-4xl text-brand-accent mb-4">02</div>
+                    <h3 class="text-xl font-bold mb-3">Assessment</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Establishing competitive criteria for Location, Concept, Product, and Tradezone. Validating the "Why" behind the business.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 200ms;">
+                    <div class="text-4xl text-brand-accent mb-4">03</div>
+                    <h3 class="text-xl font-bold mb-3">Growth Strategy</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Defining strategic goals and financial estimations to shape Branding & Marketing objectives (Revenue, ROI, Traffic).
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="p-6 border border-white/10 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 300ms;">
+                    <div class="text-4xl text-brand-accent mb-4">04</div>
+                    <h3 class="text-xl font-bold mb-3">Execution (IMC)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Setting up the full communication framework: Positioning, Big Idea, Brand Archetype, Key Message, and Integrated Marketing Channels.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 md:py-32 px-4 md:px-12 bg-stone-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark mb-4">THE CAMPAIGNS</h2>
+                <p class="text-gray-500">Hạng Mục Triển Khai 2024 - 2026</p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 reveal">
+                <button onclick="filterProjects('all')" class="category-badge active" data-category="all">All</button>
+                <button onclick="filterProjects('dining')" class="category-badge" data-category="dining">Nhà Hàng - Dining</button>
+                <button onclick="filterProjects('casual')" class="category-badge" data-category="casual">Casual Kitchen/Bistro</button>
+                <button onclick="filterProjects('cafe')" class="category-badge" data-category="cafe">Cafeteria / Dessert / Milktea</button>
+                <button onclick="filterProjects('bar')" class="category-badge" data-category="bar">Bar / Nightlife</button>
+            </div>
+
+            <!-- DINING SECTION -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-serif font-bold text-brand-dark mb-8 border-l-4 border-brand-accent pl-4 reveal">NHÀ HÀNG - DINING</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project: Hidden Charm -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="dining">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hidden Charm" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Vietnamese Cuisine</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">HIDDEN CHARM</h3>
+                            <p class="text-gray-500 text-sm mb-3">Vietnamese Fine Dining | Thảo Điền</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Chiến lược ra mắt (6 tháng)</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">05/2025 - 11/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">101 Xuân Thủy, Thảo Điền</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">HIDDEN CHARM</h4>
+                            <p class="text-sm mb-4">Nghiên cứu thị trường, đánh giá cạnh tranh, Growth strategy & IMC Plan</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Dokkaebi Pocha -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="dining">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1580651315530-69c8e0026377?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dokkaebi Pocha" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Korean Pocha</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">DOKKAEBI POCHA</h3>
+                            <p class="text-gray-500 text-sm mb-3">Nhà hàng Pocha kiểu Hàn | Thảo Điền</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Ra mắt & tăng trưởng (3 tháng)</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">07/2025 - 09/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">9A Ngô Quang Huy, Thảo Điền</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">DOKKAEBI POCHA</h4>
+                            <p class="text-sm mb-4">Nghiên cứu thị trường món Hàn, IMC & Positioning</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Chuyen Ba Bua -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="dining">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chuyen Ba Bua" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Modern Vietnamese</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">CHUYỆN BA BỮA</h3>
+                            <p class="text-gray-500 text-sm mb-3">Modern Vietnamese Cuisine | Quận 1</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Tăng trưởng doanh thu (6 tháng)</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">04/2025 - 10/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">78 Nguyễn Đình Chiểu, Đa Kao</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">CHUYỆN BA BỮA</h4>
+                            <p class="text-sm mb-4">Nghiên cứu Viet Cuisine, Growth & IMC Plan</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: The Park Rooftop -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="bar">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="The Park Rooftop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Nightlife - Bar</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">THE PARK ROOFTOP</h3>
+                            <p class="text-gray-500 text-sm mb-3">Nightlife - Bar | Quận 1</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Ra mắt & tăng trưởng (6 tháng)</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">03/2025 - 09/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">20 Đỗ Quang Đẩu, Phạm Ngũ Lão</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">THE PARK ROOFTOP</h4>
+                            <p class="text-sm mb-4">Quét thị trường nightlife, chiến lược thâm nhập thị trường</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Mua Vang The Warehouse -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="dining">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1519671482538-518b5c2c681c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mua Vang" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Fine Casual</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">MÙA VÀNG THE WAREHOUSE</h3>
+                            <p class="text-gray-500 text-sm mb-3">Nhà hàng - Sảnh Tiệc | Quận 10</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Performance Ads - Tăng trưởng</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">09/2025 - 12/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">Siêu thị GO Tô Hiến Thành</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">MÙA VÀNG</h4>
+                            <p class="text-sm mb-4">Performance campaign, R&D creative, KOC booking</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CASUAL KITCHEN SECTION -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-serif font-bold text-brand-dark mb-8 border-l-4 border-brand-accent pl-4 reveal">CASUAL KITCHEN / BISTRO</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project: Bun Nha Mai -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="casual">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bun Nha Mai" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Tiệm Bún</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">BÚN NHÀ MAI</h3>
+                            <p class="text-gray-500 text-sm mb-3">Tiệm Bún Casual | Quận 8</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Tăng trưởng doanh thu</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">09/2025 - 12/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">Dương Quang Đông, Quận 8</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">BÚN NHÀ MAI</h4>
+                            <p class="text-sm mb-4">Nghiên cứu thị trường khu vực, Growth & IMC</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Kim Phong Giai Vi -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="casual">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kim Phong Giai Vi" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Cloud Kitchen</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">KIM PHONG GIAI VỊ</h3>
+                            <p class="text-gray-500 text-sm mb-3">Cloud Kitchen Món Hoa | Online</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Tăng trưởng doanh thu (1 năm)</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">08/2025 - 08/2026</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">Bếp Online</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">KIM PHONG GIAI VỊ</h4>
+                            <p class="text-sm mb-4">Tiêu chí cạnh tranh: trục món, giá thành, packaging</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Felota Bistro -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="casual">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Felota Bistro" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Bistro & Cafeteria</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">FELOTA BISTRO</h3>
+                            <p class="text-gray-500 text-sm mb-3">Bistro và Cafeteria | Tân Bình</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Tăng trưởng doanh thu (3 tháng)</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">08/2025 - 11/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">Phổ Quang, Tân Bình</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">FELOTA BISTRO</h4>
+                            <p class="text-sm mb-4">Nghiên cứu thị trường, Growth & IMC Plan</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CAFE - DESSERT SECTION -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-serif font-bold text-brand-dark mb-8 border-l-4 border-brand-accent pl-4 reveal">CAFE - DESSERT / MILKTEA</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project: Cham - Kem Bo Da Lat -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="cafe">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cham Kem Bo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Cafe & Dessert</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">CHẠM - KEM BƠ ĐÀ LẠT</h3>
+                            <p class="text-gray-500 text-sm mb-3">Cafe & Dessert Bơ | Phú Nhuận</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Launching thương hiệu</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">05/2024 - 08/2024</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">Hoa Hồng, Phan Xích Long</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">CHẠM - KEM BƠ ĐÀ LẠT</h4>
+                            <p class="text-sm mb-4">Xác định điểm trống thị trường, chiến lược thâm nhập</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Dabacha -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="cafe">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dabacha" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Milk Tea</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">DABACHA</h3>
+                            <p class="text-gray-500 text-sm mb-3">Milk Tea | Quận 1</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Launching thương hiệu</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">02/2025 - 05/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">15a Tôn Thất Tùng, Phạm Ngũ Lão</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">DABACHA</h4>
+                            <p class="text-sm mb-4">Xác định điểm trống thị trường, Launching strategy</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Dong Day Coffee -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="cafe">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dong Day Coffee" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Coffee Shop</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">ĐONG ĐẦY COFFEE</h3>
+                            <p class="text-gray-500 text-sm mb-3">Coffee Shop | Quận 8</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Launching thương hiệu</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">12/2025 - 01/2026</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">Dương Bá Trạc, Quận 8</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">ĐONG ĐẦY COFFEE</h4>
+                            <p class="text-sm mb-4">Nghiên cứu thị trường, Launching & IMC Plan</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Project: Mr.P Bingsu -->
+                    <div class="group project-card relative overflow-hidden rounded-xl bg-white shadow-lg cursor-pointer reveal" data-category="cafe">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mr.P Bingsu" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold tracking-wider uppercase">Dessert & Coffee</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold mb-1">MR.P BINGSU</h3>
+                            <p class="text-gray-500 text-sm mb-3">Dessert & Coffee | Tân Phú</p>
+                            <hr class="border-gray-100 mb-3">
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex justify-between"><span>Mục tiêu:</span> <span class="font-medium text-brand-green">Tăng trưởng doanh thu (3 tháng)</span></div>
+                                <div class="flex justify-between"><span>Thời gian:</span> <span class="font-medium">10/2025 - 12/2025</span></div>
+                                <div class="flex justify-between"><span>Location:</span> <span class="font-medium">Chi nhánh Trương Vĩnh Ký</span></div>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-brand-green/95 flex flex-col justify-center items-center text-white opacity-0 transition-all duration-300 p-6 text-center">
+                            <h4 class="text-xl font-serif font-bold mb-2">MR.P BINGSU</h4>
+                            <p class="text-sm mb-4">Mapping đối thủ, chiến lược tăng trưởng</p>
+                            <button class="border border-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-brand-green transition">View Details</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Metrics Section -->
+    <section id="success-metrics" class="py-20 md:py-32 px-6 md:px-12 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark mb-4">SUCCESS METRICS</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Kết quả đạt được qua các dự án tư vấn F&B</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-8 bg-stone-50 rounded-2xl reveal">
+                    <div class="text-5xl font-serif font-bold text-brand-green mb-2">13+</div>
+                    <p class="text-gray-600 font-medium">Dự án F&B</p>
+                    <p class="text-sm text-gray-400 mt-2">Consulting Projects</p>
+                </div>
+                <div class="text-center p-8 bg-stone-50 rounded-2xl reveal" style="transition-delay: 100ms;">
+                    <div class="text-5xl font-serif font-bold text-brand-green mb-2">5+</div>
+                    <p class="text-gray-600 font-medium">Mô hình F&B</p>
+                    <p class="text-sm text-gray-400 mt-2">Dining, Casual, Cafe, Bar, Cloud Kitchen</p>
+                </div>
+                <div class="text-center p-8 bg-stone-50 rounded-2xl reveal" style="transition-delay: 200ms;">
+                    <div class="text-5xl font-serif font-bold text-brand-green mb-2">100%</div>
+                    <p class="text-gray-600 font-medium">Full-stack Strategy</p>
+                    <p class="text-sm text-gray-400 mt-2">Research → Growth → IMC</p>
+                </div>
+                <div class="text-center p-8 bg-stone-50 rounded-2xl reveal" style="transition-delay: 300ms;">
+                    <div class="text-5xl font-serif font-bold text-brand-green mb-2">2+</div>
+                    <p class="text-gray-600 font-medium">Năm Kinh Nghiệm</p>
+                    <p class="text-sm text-gray-400 mt-2">F&B Consulting</p>
+                </div>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                <div class="bg-brand-dark text-white p-8 rounded-2xl">
+                    <i class="fa-solid fa-magnifying-glass-chart text-3xl text-brand-accent mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Market Research</h3>
+                    <p class="text-gray-400 text-sm">Nghiên cứu thị trường khu vực, chân dung khách hàng, mapping đối thủ trực tiếp & giải pháp thay thế.</p>
+                </div>
+                <div class="bg-brand-dark text-white p-8 rounded-2xl">
+                    <i class="fa-solid fa-chart-line text-3xl text-brand-accent mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Growth Strategy</h3>
+                    <p class="text-gray-400 text-sm">Xác định mục tiêu chiến lược, khái toán tài chính để định hình mục tiêu branding & marketing.</p>
+                </div>
+                <div class="bg-brand-dark text-white p-8 rounded-2xl">
+                    <i class="fa-solid fa-bullhorn text-3xl text-brand-accent mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">IMC Execution</h3>
+                    <p class="text-gray-400 text-sm">Thiết lập toàn bộ khung truyền thông: positioning, big idea, brand archetype, key message.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-brand-dark text-white py-24 px-6 relative overflow-hidden">
+        <!-- Abstract Background Circles -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-green rounded-full opacity-10 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-brand-accent rounded-full opacity-10 blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 reveal">
+            <p class="text-brand-accent font-bold tracking-[0.2em] uppercase text-sm mb-4">2026</p>
+            <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8">THANK YOU</h2>
+            <p class="text-xl text-gray-300 mb-12">Let's connect and discuss your F&B business strategy.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="mailto:chilaptrannguyen@gmail.com" class="flex items-center justify-center px-8 py-4 bg-brand-green rounded-full font-bold hover:bg-white hover:text-brand-dark transition-all duration-300">
+                    <i class="fa-solid fa-envelope mr-3"></i> chilaptrannguyen@gmail.com
+                </a>
+                <a href="tel:+84967921034" class="flex items-center justify-center px-8 py-4 bg-transparent border border-gray-500 rounded-full font-bold hover:border-white hover:bg-white/5 transition-all duration-300">
+                    <i class="fa-solid fa-phone mr-3"></i> (84) 967 921 034
+                </a>
+            </div>
+
+            <div class="mt-16 flex justify-center space-x-8">
+                <a href="#" class="text-3xl text-gray-400 hover:text-white transition-colors" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="text-3xl text-gray-400 hover:text-white transition-colors" title="Download CV"><i class="fa-solid fa-file-pdf"></i></a>
+            </div>
+
+            <div class="mt-16 border-t border-gray-800 pt-8 text-sm text-gray-500">
+                <p>&copy; 2026 Leo Nguyễn Portfolio. All rights reserved.</p>
+                <p class="mt-2">Ho Chi Minh City, Vietnam</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+            } else {
+                menu.classList.add('translate-x-full');
+            }
+        }
+
+        // Project Filter Function
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.category-badge');
+            
+            // Update active button
+            buttons.forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Filter cards
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.classList.add('active');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
